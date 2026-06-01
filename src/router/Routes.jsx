@@ -17,6 +17,7 @@ import Customers from "../Pages/Customers/Customers";
 import CustomerDetails from "../Pages/CustomerDetails/CustomerDetails";
 import Support from "../Pages/Support/Support";
 import Notifications from "../Pages/Notifications/Notifications";
+import Users from "../Pages/Users/Users";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,7 @@ export const router = createBrowserRouter([
           { path: "/support", element: <Support /> },
           { path: "/settings", element: <Settings/> },
           { path: "/notifications", element: <Notifications /> },
+          { path: "/users", element: <Users /> },
         ],
       },
     ],
