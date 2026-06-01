@@ -19,7 +19,7 @@ export default function Users() {
       const matchesSearch =
         c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         c.email.toLowerCase().includes(searchQuery.toLowerCase());
-      
+
       const matchesTier =
         selectedTier === "All Tiers" ||
         c.plan.toLowerCase() === selectedTier.toLowerCase();
@@ -64,7 +64,7 @@ export default function Users() {
 
   return (
     <div className="min-h-screen p-6 bg-gray-50/50 font-sans mt-16 text-slate-800">
-      
+
       {/* Title, Subtitle, & Total Active Badge Header Row */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 select-none">
         <div className="text-left">
@@ -89,9 +89,9 @@ export default function Users() {
 
       {/* Main Table Outer Card */}
       <div className="bg-white border border-gray-100/80 rounded-3xl shadow-[0_2px_12px_rgba(0,0,0,0.015)] overflow-hidden">
-        
+
         {/* Upper Controls Row */}
-        <UserFilters 
+        <UserFilters
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           selectedTier={selectedTier}
@@ -99,7 +99,7 @@ export default function Users() {
         />
 
         {/* Table Container */}
-        <UserTable 
+        <UserTable
           collectors={paginatedCollectors}
           sortBy={sortBy}
           onSort={handleSort}
@@ -107,7 +107,7 @@ export default function Users() {
         />
 
         {/* Footer Pagination Controls Row */}
-        <UserPagination 
+        <UserPagination
           totalCount={sortedCollectors.length}
           currentPage={currentPage}
           totalPages={totalPages}
@@ -117,7 +117,7 @@ export default function Users() {
       </div>
 
       {/* User Details Right Drawer Modal */}
-      <UserDetailDrawer 
+      <UserDetailDrawer
         selectedUser={selectedUser}
         onClose={() => setSelectedUser(null)}
       />
