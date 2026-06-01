@@ -16,6 +16,8 @@ import Payments from "../Pages/Payments/Payments";
 import Customers from "../Pages/Customers/Customers";
 import CustomerDetails from "../Pages/CustomerDetails/CustomerDetails";
 import Support from "../Pages/Support/Support";
+import Notifications from "../Pages/Notifications/Notifications";
+
 export const router = createBrowserRouter([
   {
     path: "/sign-in",
@@ -52,7 +54,7 @@ export const router = createBrowserRouter([
           {path: "/customer/:id" , element: <CustomerDetails/>},
           { path: "/support", element: <Support /> },
           { path: "/settings", element: <Settings/> },
-
+          { path: "/notifications", element: <Notifications /> },
         ],
       },
     ],

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Bell } from "lucide-react";
 
 const Header = ({ showDrawer }) => {
+  const navigate = useNavigate();
   const [showNotifications, setShowNotifications] = useState(false);
   const [notificationsCount] = useState(1); // Mapped to 1 as in screenshot
 
@@ -48,7 +49,7 @@ const Header = ({ showDrawer }) => {
           <div className="flex items-center gap-3">
             {/* Notification Bell Outline Button */}
             <button
-              onClick={() => setShowNotifications((prev) => !prev)}
+              onClick={() => navigate("/notifications")}
               className="relative flex items-center justify-center w-10 h-10 rounded-full border border-[#002B49]/15 text-[#002B49] hover:bg-[#002B49]/5 hover:border-[#002B49]/30 transition-all focus:outline-none"
             >
               <svg className="w-[18px] h-[18px] text-[#002B49]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
