@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import {
   LayoutGrid,
   Users,
+  DollarSign,
   CreditCard,
   Store,
   Megaphone,
@@ -28,6 +29,11 @@ const Sidebar = ({ closeDrawer }) => {
       icon: <Users className="w-[18px] h-[18px]" />,
       label: "Users",
       Link: "/users",
+    },
+    {
+      icon: <DollarSign className="w-[18px] h-[18px]" />,
+      label: "Earning",
+      Link: "/earning",
     },
     {
       icon: <CreditCard className="w-[18px] h-[18px]" />,
