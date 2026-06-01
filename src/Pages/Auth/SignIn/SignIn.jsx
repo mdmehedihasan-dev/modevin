@@ -1,0 +1,191 @@
+import { Checkbox, Form, Typography } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import watchBg from "../../../assets/image/luxury_watch_bg.png";
+
+const SignIn = () => {
+  const navigate = useNavigate();
+  const [showpassword, setShowpassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowpassword(!showpassword);
+  };
+
+  const onFinish = (values) => {
+    setLoading(true);
+    // Simulating login without actual API call
+    setTimeout(() => {
+      setLoading(false);
+      navigate("/dashboard");
+    }, 1500);
+  };
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen w-full bg-white font-sans">
+      {/* Left Panel - Watch Background & Text */}
+      <div
+        className="relative hidden md:flex flex-col justify-between p-12 bg-cover bg-center text-white min-h-screen select-none"
+        style={{ backgroundImage: `url(${watchBg})` }}
+      >
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/60 z-0 pointer-events-none" />
+
+        {/* Top Logo */}
+        <div className="relative z-10 flex items-center gap-2">
+          {/* Diamond SVG Logo */}
+          <svg className="w-5 h-5 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="12 2 22 12 12 22 2 12" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+          </svg>
+          <span className="text-md font-bold tracking-widest text-white uppercase">CHRONOCORE</span>
+        </div>
+
+        {/* Middle/Bottom Typography */}
+        <div className="relative z-10 max-w-md mt-auto mb-16">
+          <h1 className="text-4xl font-semibold leading-tight text-white mb-3">
+            The Authority in <br />Horology
+          </h1>
+          <p className="text-xs text-gray-300 leading-relaxed font-light">
+            Precision engineering meets financial dominance. Access the world's most exclusive horological market data.
+          </p>
+        </div>
+
+        {/* Bottom Footer */}
+        <div className="relative z-10 text-[9px] text-gray-400 font-medium tracking-widest uppercase">
+          © 2026 HOROLOGICAL AUTHORITY. ALL RIGHTS RESERVED.
+        </div>
+      </div>
+
+      {/* Right Panel - Form */}
+      <div className="flex items-center justify-center p-8 md:p-16 lg:p-24 bg-white min-h-screen">
+        <div className="w-full max-w-sm">
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#0D1B2A] tracking-tight uppercase">
+              ADMIN DASHBOARD
+            </h2>
+            <p className="text-xs text-gray-400 mt-1 font-medium">
+              Welcome back
+            </p>
+          </div>
+
+          <Form
+            name="login"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            layout="vertical"
+            requiredMark={false}
+          >
+            {/* Email Field */}
+            <div className="mb-4">
+              <label className="block text-[10px] font-semibold text-gray-400 tracking-wider uppercase mb-1.5">
+                EMAIL ADDRESS
+              </label>
+              <Form.Item
+                name="email"
+                rules={[
+                  { required: true, message: "Please input your email!" },
+                  { type: "email", message: "Please enter a valid email!" }
+                ]}
+                className="mb-0"
+              >
+                <input
+                  className="w-full h-11 px-4 text-xs text-gray-800 placeholder-gray-300 bg-white border border-gray-200 rounded-lg hover:border-gray-300 focus:border-sky-500 focus:shadow-[0_0_0_2px_rgba(56,189,248,0.15)] transition-all outline-none"
+                  placeholder="name@authority.com"
+                />
+              </Form.Item>
+            </div>
+
+            {/* Password Field */}
+            <div className="mb-5">
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-[10px] font-semibold text-gray-400 tracking-wider uppercase">
+                  PASSWORD
+                </label>
+                <Link
+                  to="/forgate-password"
+                  className="text-[10px] font-semibold text-sky-500 hover:text-sky-600 transition-colors"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <Form.Item
+                name="password"
+                rules={[{ required: true, message: "Please input your password!" }]}
+                className="mb-0"
+              >
+                <div className="relative flex items-center">
+                  <input
+                    className="w-full h-11 pl-4 pr-11 text-xs text-gray-800 placeholder-gray-300 bg-white border border-gray-200 rounded-lg hover:border-gray-300 focus:border-sky-500 focus:shadow-[0_0_0_2px_rgba(56,189,248,0.15)] transition-all outline-none"
+                    type={showpassword ? "text" : "password"}
+                    placeholder="••••••••"
+                  />
+                  <button
+                    onClick={togglePasswordVisibility}
+                    type="button"
+                    className="absolute right-3.5 text-gray-400 hover:text-gray-600 transition-colors focus:outline-none"
+                  >
+                    {showpassword ? (
+                      <FaRegEye className="w-4 h-4" />
+                    ) : (
+                      <FaRegEyeSlash className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </Form.Item>
+            </div>
+
+            {/* Remember Me */}
+            <div className="flex items-center justify-between mb-5">
+              <Form.Item name="remember" valuePropName="checked" noStyle>
+                <Checkbox className="text-xs text-gray-400 hover:text-gray-500 select-none">
+                  Remember me for 30 days
+                </Checkbox>
+              </Form.Item>
+            </div>
+
+            {/* Action Button */}
+            <Form.Item className="mb-6">
+              <button
+                className="relative flex items-center justify-center gap-2 w-full h-11 bg-[#092C4C] hover:bg-[#061F36] active:bg-[#031120] text-white font-medium text-xs rounded-lg transition-colors shadow-sm focus:outline-none"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="animate-spin h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Signing In...
+                  </span>
+                ) : (
+                  <>
+                    Sign In
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </>
+                )}
+              </button>
+            </Form.Item>
+          </Form>
+
+          {/* Need help footer */}
+          <div className="text-center mt-8">
+            <span className="text-[11px] text-gray-400 font-medium">
+              Need technical assistance?{" "}
+              <a href="mailto:admin@chronocore.com" className="text-sky-500 hover:text-sky-600 transition-colors font-semibold">
+                Contact System Admin
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SignIn;
