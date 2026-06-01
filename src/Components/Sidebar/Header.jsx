@@ -1,20 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { IoMdNotifications } from "react-icons/io";
+import { Link } from "react-router-dom";
 import { Bell } from "lucide-react";
-import adminImage from "../../assets/image/adminkickclick.jpg";
 
 const Header = ({ showDrawer }) => {
   const [showNotifications, setShowNotifications] = useState(false);
-  const [notificationsCount] = useState(5);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const adminProfile = {
-    name: "James",
-    role: "admin",
-  };
+  const [notificationsCount] = useState(1); // Mapped to 1 as in screenshot
 
   const notifications = [
     { message: "A new user joined your app.", time: "Fri, 12:30pm" },
@@ -23,85 +13,88 @@ const Header = ({ showDrawer }) => {
     { message: "New comment on your post.", time: "Fri, 12:30pm" },
   ];
 
-  const isMessagesActive = location.pathname === "/messages";
-
   return (
-    <div className="relative mt-2 border-b-2">
-      <div className="flex items-center justify-between p-4 ">
-        {/*============================= Left Section============================= */}
-        <div className="flex items-center gap-4">
-          <RxHamburgerMenu
-            className="text-2xl text-blue-800 cursor-pointer lg:hidden"
-            onClick={showDrawer}
-          />
-          <div>
-            <h2 className="font-bold text-[#202326] text-2xl">
-              Admin Dashboard
-            </h2>
-            <p className="text-sm text-gray-500">Platform Overview</p>
-          </div>
-        </div>
-
-        {/* =============================Right Section============================= */}
-        <div className="flex items-center gap-4">
-  
-
-          {/* Notification Icon */}
-          <button
-            className="relative p-2 transition hover:bg-blue-50"
-            onClick={() => setShowNotifications((prev) => !prev)}
-          >
-            <IoMdNotifications className="text-xl" />
-            {notificationsCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 bg-red-500 h-3 w-3 rounded-full border border-white"></span>
-            )}
-          </button>
-
-          {/* Profile Icon */}
-          <Link to="/settings">
-            <div className="p-2 text-blue-700 transition border border-blue-500 rounded-full hover:bg-blue-50">
-              <img
-                src={adminImage}
-                alt="Admin"
-                className="object-cover w-6 h-6 rounded-full"
-              />
+    <div className="relative w-full py-4 select-none font-sans">
+      {/* Floating White Rounded Card Container */}
+      <div className="bg-white shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-gray-100/80 rounded-2xl w-full">
+        <div className="flex items-center justify-between px-6 py-4">
+          
+          {/* Left Section: Hamburger & Welcome Info */}
+          <div className="flex items-center gap-4">
+            {/* Hamburger button always visible */}
+            <button 
+              onClick={showDrawer} 
+              className="text-[#002B49] hover:bg-slate-50 p-2 rounded-xl transition-colors flex items-center justify-center border border-transparent focus:outline-none"
+            >
+              <svg className="w-5 h-5 text-[#002B49]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            
+            {/* Welcome Typography */}
+            <div className="flex flex-col text-left">
+              <h2 className="text-base md:text-lg font-bold text-[#002B49] tracking-tight leading-none">
+                Welcome, James
+              </h2>
+              <span className="text-[11px] text-gray-400 font-semibold tracking-wide mt-1.5 leading-none">
+                Have a nice day!
+              </span>
             </div>
-          </Link>
+          </div>
+
+          {/* Right Section: Circular Outline Controls */}
+          <div className="flex items-center gap-3">
+            {/* Notification Bell Outline Button */}
+            <button
+              onClick={() => setShowNotifications((prev) => !prev)}
+              className="relative flex items-center justify-center w-10 h-10 rounded-full border border-[#002B49]/15 text-[#002B49] hover:bg-[#002B49]/5 hover:border-[#002B49]/30 transition-all focus:outline-none"
+            >
+              <svg className="w-[18px] h-[18px] text-[#002B49]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              {notificationsCount > 0 && (
+                <span className="absolute -top-1 -right-1 flex items-center justify-center bg-rose-500 text-[8px] font-black text-white w-4.5 h-4.5 rounded-full border-2 border-white leading-none shadow-sm select-none">
+                  1
+                </span>
+              )}
+            </button>
+
+            {/* Profile User Outline Button */}
+            <Link to="/settings" className="focus:outline-none">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full border border-[#002B49]/15 text-[#002B49] hover:bg-[#002B49]/5 hover:border-[#002B49]/30 transition-all">
+                <svg className="w-[18px] h-[18px] text-[#002B49]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* Notification Dropdown */}
+      {/* Notification Dropdown styled to match */}
       {showNotifications && (
-        <div className="absolute right-4 top-[72px] z-50 p-4 bg-white rounded-md shadow-xl w-80">
-          <h2 className="text-lg font-semibold text-center border-b pb-2 text-[#2c3e50]">
+        <div className="absolute right-0 top-[88px] z-50 p-4 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 w-80">
+          <h2 className="text-sm font-bold text-center border-b border-gray-50 pb-2.5 text-[#002B49] uppercase tracking-wider">
             Notifications
           </h2>
 
-          <div className="mt-4 space-y-4">
+          <div className="mt-4 space-y-3.5">
             {notifications.map((item, index) => (
-              <div key={index} className="flex items-start gap-3">
-                <div className="bg-[#f1f5f9] p-2 rounded-md">
-                  <Bell className="text-[#1e293b]" size={20} />
+              <div key={index} className="flex items-start gap-3 hover:bg-slate-50 p-1.5 rounded-xl transition-all cursor-pointer">
+                <div className="bg-[#002B49]/5 p-2 rounded-lg text-[#002B49]">
+                  <Bell className="w-4 h-4" />
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-[#1e293b]">
+                <div className="text-left">
+                  <p className="text-xs font-semibold text-slate-800 leading-normal">
                     {item.message}
                   </p>
-                  <p className="text-xs text-gray-500">{item.time}</p>
+                  <p className="text-[10px] text-gray-400 font-medium mt-1">{item.time}</p>
                 </div>
               </div>
             ))}
           </div>
-
-          {/* <button
-            onClick={() => {
-              setShowNotifications(false);
-              navigate("/notifications");
-            }}
-            className="mt-6 w-full bg-[#71abe0] text-white py-2 rounded-md hover:bg-blue-400 transition duration-200"
-          >
-            Load More
-          </button> */}
         </div>
       )}
     </div>
