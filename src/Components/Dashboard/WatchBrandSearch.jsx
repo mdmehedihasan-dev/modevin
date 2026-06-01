@@ -32,39 +32,42 @@ export default function WatchBrandSearch() {
         </div>
       </div>
 
-      {/* Multi-layered Area Chart */}
-      <div className="relative w-full h-56 flex items-end">
-        {/* Custom SVG Layered Chart */}
-        <svg className="w-full h-full z-10" viewBox="0 0 1000 200" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="rolexGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#002B49" stopOpacity="0.35" />
-              <stop offset="100%" stopColor="#002B49" stopOpacity="0.0" />
-            </linearGradient>
-            <linearGradient id="patekGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.45" />
-              <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
-            </linearGradient>
-            <linearGradient id="apGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#CBD5E1" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#CBD5E1" stopOpacity="0.0" />
-            </linearGradient>
-          </defs>
+      {/* Inner Card Container for the Chart */}
+      <div className="w-full bg-white border border-gray-100/60 rounded-3xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.015)] relative">
+        {/* Multi-layered Area Chart */}
+        <div className="relative w-full h-56 flex items-end">
+          {/* Custom SVG Layered Chart */}
+          <svg className="w-full h-full z-10" viewBox="0 0 1000 200" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="rolexGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#002B49" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="#002B49" stopOpacity="0.0" />
+              </linearGradient>
+              <linearGradient id="patekGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
+              </linearGradient>
+              <linearGradient id="apGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#CBD5E1" stopOpacity="0.25" />
+                <stop offset="100%" stopColor="#CBD5E1" stopOpacity="0.0" />
+              </linearGradient>
+            </defs>
 
-          {/* Layer 3: Audemars Piguet (Gray, bottom wave) */}
-          <path d="M 0 180 Q 150 170, 300 160 T 600 170 T 1000 165 L 1000 200 L 0 200 Z" fill="url(#apGradient)" />
-          
-          {/* Layer 2: Rolex (Dark Blue wave) */}
-          <path d="M 0 165 C 200 160, 300 110, 500 120 S 800 80, 1000 105 L 1000 200 L 0 200 Z" fill="url(#rolexGradient)" />
-          
-          {/* Layer 1: Patek Philippe (Sky Blue wave, overlaps) */}
-          <path d="M 0 180 C 150 180, 250 135, 400 145 S 700 100, 1000 120 L 1000 200 L 0 200 Z" fill="url(#patekGradient)" />
-        </svg>
+            {/* Layer 3: Audemars Piguet (Gray, bottom wave) */}
+            <path d="M 0 180 Q 150 170, 300 160 T 600 170 T 1000 165 L 1000 200 L 0 200 Z" fill="url(#apGradient)" />
+            
+            {/* Layer 2: Rolex (Dark Blue wave) */}
+            <path d="M 0 165 C 200 160, 300 110, 500 120 S 800 80, 1000 105 L 1000 200 L 0 200 Z" fill="url(#rolexGradient)" />
+            
+            {/* Layer 1: Patek Philippe (Sky Blue wave, overlaps) */}
+            <path d="M 0 180 C 150 180, 250 135, 400 145 S 700 100, 1000 120 L 1000 200 L 0 200 Z" fill="url(#patekGradient)" />
+          </svg>
 
-        {/* Floating Tooltip/Badge - Overlay on Rolex Wave Peak */}
-        <div className="absolute top-[35%] left-[38%] md:left-[42%] z-20 bg-white border border-gray-150 p-3 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] text-left flex flex-col justify-center pointer-events-none select-none">
-          <span className="text-[10px] font-extrabold text-[#002B49] tracking-wider uppercase leading-none">Rolex Submariner Spike</span>
-          <span className="text-[9px] text-[#38BDF8] font-extrabold mt-1.5 leading-none">+45% in last 48h</span>
+          {/* Floating Tooltip/Badge - Overlay on Rolex Wave Peak */}
+          <div className="absolute top-[38%] left-[34%] z-20 bg-white border border-gray-100 p-4 rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.06)] text-left flex flex-col justify-center pointer-events-none select-none">
+            <span className="text-xs font-bold text-[#002B49] tracking-tight leading-none">Rolex Submariner Spike</span>
+            <span className="text-[10px] text-gray-400 font-semibold mt-1 leading-none">+45% in last 48h</span>
+          </div>
         </div>
       </div>
 
