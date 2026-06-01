@@ -22,7 +22,7 @@ const MainLayout = () => {
 
       {/* Drawer for Mobile */}
       <Drawer placement="left" onClose={onClose} open={open} width={250}>
-        <Sidebar />
+        <Sidebar closeDrawer={onClose} />
       </Drawer>
 
       {/* Main Content Wrapper */}

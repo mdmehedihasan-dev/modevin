@@ -1,105 +1,132 @@
-import { FiLogOut } from "react-icons/fi";
-import { BiChevronDown } from "react-icons/bi";
 import { Link, useLocation } from "react-router-dom";
-import { MdDashboard } from "react-icons/md";
-import brandlogo from "../../assets/image/yard_logo.png";
 import {
-  AlignCenterVertical,
-  ChartColumnIncreasing,
-  Crown,
-  Settings,
-  TriangleAlert,
+  LayoutGrid,
   Users,
+  CreditCard,
+  Store,
+  Megaphone,
+  LineChart,
+  Activity,
+  UserPlus,
+  FileBarChart2,
+  Mail,
+  Sliders,
+  Settings,
+  LogOut
 } from "lucide-react";
-import { BsBadgeAd } from "react-icons/bs";
-import { SiActivitypub } from "react-icons/si";
-import { RiDashboardHorizontalLine } from "react-icons/ri";
-
 
 const Sidebar = ({ closeDrawer }) => {
   const location = useLocation();
 
   const menuItems = [
     {
-      icon: <RiDashboardHorizontalLine className="w-5 h-5" />,
+      icon: <LayoutGrid className="w-[18px] h-[18px]" />,
       label: "Dashboard",
       Link: "/",
     },
     {
-      icon: <Users className="w-5 h-5" />,
-      label: "Bookings",
-      Link: "/booking",
-    },
-    {
-      icon: <ChartColumnIncreasing className="w-5 h-5" />,
-      label: "Workers",
-      Link: "/workers",
-    },
-    {
-      icon: <Crown className="w-5 h-5" />,
-      label: "Payments",
-      Link: "/payments",
-    },
-
-    {
-      icon: <BsBadgeAd className="w-5 h-5"/>,
-      label: "Customers",
+      icon: <Users className="w-[18px] h-[18px]" />,
+      label: "Users",
       Link: "/customers",
     },
     {
-      icon: <AlignCenterVertical className="w-5 h-5"/>,
-      label: "Support",
+      icon: <CreditCard className="w-[18px] h-[18px]" />,
+      label: "Subscription",
+      Link: "/booking",
+    },
+    {
+      icon: <Store className="w-[18px] h-[18px]" />,
+      label: "Marketplaces",
+      Link: "/payments",
+    },
+    {
+      icon: <Megaphone className="w-[18px] h-[18px]" />,
+      label: "Campaigns",
       Link: "/support",
     },
     {
-      icon: <Settings className="w-5 h-5" />,
+      icon: <LineChart className="w-[18px] h-[18px]" />,
+      label: "Analytics",
+      Link: "/workers",
+    },
+    {
+      icon: <Activity className="w-[18px] h-[18px]" />,
+      label: "System Monitoring",
+      Link: "#",
+    },
+    {
+      icon: <UserPlus className="w-[18px] h-[18px]" />,
+      label: "Create Admin",
+      Link: "#",
+    },
+    {
+      icon: <FileBarChart2 className="w-[18px] h-[18px]" />,
+      label: "Report",
+      Link: "#",
+    },
+    {
+      icon: <Mail className="w-[18px] h-[18px]" />,
+      label: "Bulk Email",
+      Link: "#",
+    },
+    {
+      icon: <Sliders className="w-[18px] h-[18px]" />,
+      label: "Configure",
+      Link: "#",
+    },
+    {
+      icon: <Settings className="w-[18px] h-[18px]" />,
       label: "Settings",
       Link: "/settings",
     },
   ];
 
-  
   return (
-    <div className="w-72  bg-[#0a3019]  h-full">
-      <div className="border-b-2 border-[#166534]">
-         <div className="px-8 py-5 ">
-        <img src={brandlogo} alt="logo" className="w-auto" />
-      </div>
-      </div>
+    <div className="w-full h-full bg-white border-r border-gray-100 flex flex-col justify-between font-sans">
+      <div className="flex flex-col h-[calc(100vh-80px)]">
+        {/* Top Header Logo space - Write bold logo */}
+        <div className="px-6 py-8 flex flex-col items-center justify-center text-center select-none">
+          <span className="text-2xl font-black tracking-widest text-[#002B49] uppercase">
+            MODEVIN
+          </span>
+          <span className="text-[10px] text-gray-400 font-semibold tracking-wider mt-1.5 uppercase leading-none">
+            Preserving memories and people
+          </span>
+        </div>
 
-      <div className="flex-1 overflow-y-auto ">
-        {menuItems.map((item) => {
-          const isActive = location.pathname === item.Link;
+        {/* Navigation items list */}
+        <div className="flex-1 overflow-y-auto px-4 py-2 space-y-1 select-none">
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.Link || (item.Link === "/" && location.pathname === "/dashboard");
 
-          return (
-            <div key={item.label}>
-              <div
-                className={`flex w-4/5 mx-auto rounded-lg justify-between items-center px-5 py-2 my-5 cursor-pointer transition-all hover:bg-[#166534] hover:text-white hover:font-semibold ${
-                  isActive
-                    ? "bg-[#166534] text-white font-semibold"
-                    : "text-white"
-                }`}
-              >
-                <Link to={item.Link} className="flex items-center gap-3">
-                  {item.icon}
-                  <p>{item.label}</p>
-                  {item.isDropdown && (
-                    <BiChevronDown
-                      className={`${isActive ? "rotate-180" : ""}`}
-                    />
-                  )}
+            return (
+              <div key={item.label}>
+                <Link
+                  to={item.Link}
+                  onClick={closeDrawer}
+                  className={`flex items-center gap-3.5 px-4 py-2.5 rounded-lg text-xs font-bold tracking-wide transition-all ${
+                    isActive
+                      ? "bg-[#002B49] text-white shadow-sm"
+                      : "text-[#1C3D5A]/90 hover:bg-slate-50 hover:text-[#002B49]"
+                  }`}
+                >
+                  <span className={isActive ? "text-white" : "text-[#1C3D5A]/70"}>
+                    {item.icon}
+                  </span>
+                  <span>{item.label}</span>
                 </Link>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
-      <div className="mt-60">
-        <Link to="/sign-in">
-          <div className="flex items-center justify-center w-full py-3 text-xl text-white rounded-lg cursor-pointer gap-x-5">
-            <FiLogOut className="text-xl" />
-            <p>Log out</p>
+      {/* Footer Log out */}
+      <div className="p-4 border-t border-gray-100 bg-white">
+        <Link to="/sign-in" onClick={closeDrawer}>
+          <div className="flex items-center gap-3.5 px-4 py-2.5 rounded-lg text-xs font-bold text-rose-500 hover:bg-rose-50/50 transition-all cursor-pointer">
+            <LogOut className="w-4 h-4 text-rose-400" />
+            <span>Logout</span>
           </div>
         </Link>
       </div>
