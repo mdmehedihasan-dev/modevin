@@ -48,7 +48,7 @@ const Sidebar = ({ closeDrawer }) => {
     {
       icon: <Megaphone className="w-[18px] h-[18px]" />,
       label: "Campaigns",
-      Link: "/support",
+      Link: "/campaigns",
     },
     {
       icon: <LineChart className="w-[18px] h-[18px]" />,

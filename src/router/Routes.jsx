@@ -21,6 +21,7 @@ import Users from "../Pages/Users/Users";
 import Earning from "../Pages/Earning/Earning";
 import Subscription from "../Pages/Subscription/Subscription";
 import Marketplace from "../Pages/Marketplace/Marketplace";
+import Campaigns from "../Pages/Campaigns/Campaigns";
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +64,7 @@ export const router = createBrowserRouter([
           { path: "/earning", element: <Earning /> },
           { path: "/subscription", element: <Subscription /> },
           { path: "/marketplace", element: <Marketplace /> },
+          { path: "/campaigns", element: <Campaigns /> },
         ],
       },
     ],
