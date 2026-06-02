@@ -38,7 +38,7 @@ const Sidebar = ({ closeDrawer }) => {
     {
       icon: <CreditCard className="w-[18px] h-[18px]" />,
       label: "Subscription",
-      Link: "/booking",
+      Link: "/subscription",
     },
     {
       icon: <Store className="w-[18px] h-[18px]" />,
