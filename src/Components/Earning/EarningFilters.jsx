@@ -25,17 +25,17 @@ export default function EarningFilters({
       {/* Toolbar Buttons Segment */}
       <div className="flex flex-wrap items-center gap-3 relative">
         {/* Segmented control pill selector */}
-        <div className="bg-[#EEF2F6]/80 p-1 rounded-xl flex items-center border border-gray-100/30">
+        <div className="flex items-center gap-2 border border-gray-200 rounded-full p-1 bg-white shadow-sm">
           <button
             onClick={() => {
               setActiveTab("All Users");
               setSubscriptionFilter("All Subscriptions");
               setCurrentPage(1);
             }}
-            className={`px-6 py-2 rounded-lg text-xs font-bold tracking-wide transition-all focus:outline-none cursor-pointer ${
+            className={`px-6 py-2 rounded-full text-sm font-semibold transition-all focus:outline-none cursor-pointer ${
               activeTab === "All Users"
-                ? "bg-white text-[#002B49] shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
-                : "text-gray-400 hover:text-slate-600"
+                ? "bg-[#002B49] text-white shadow-md"
+                : "text-slate-500 hover:bg-slate-50 hover:text-[#002B49]"
             }`}
           >
             All Users
@@ -46,10 +46,10 @@ export default function EarningFilters({
               setSubscriptionFilter("All Subscriptions");
               setCurrentPage(1);
             }}
-            className={`px-6 py-2 rounded-lg text-xs font-bold tracking-wide transition-all focus:outline-none cursor-pointer ${
+            className={`px-6 py-2 rounded-full text-sm font-semibold transition-all focus:outline-none cursor-pointer ${
               activeTab === "Internal"
-                ? "bg-white text-[#002B49] shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
-                : "text-gray-400 hover:text-slate-600"
+                ? "bg-[#002B49] text-white shadow-md"
+                : "text-slate-500 hover:bg-slate-50 hover:text-[#002B49]"
             }`}
           >
             Internal

@@ -1,6 +1,4 @@
-// High-fidelity rich dataset matching both page 1 of the screenshot and enriching with realistic user profiles to enable fully working pagination/filters
 export const mockTransactions = [
-  // Page 1 matches Screenshot 1 perfectly
   {
     id: 1,
     user: {
@@ -242,3 +240,4 @@ export const mockTransactions = [
     type: "Internal"
   }
 ];
+

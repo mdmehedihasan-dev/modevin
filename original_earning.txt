@@ -1,0 +1,103 @@
+Created At: 2026-06-01T18:45:24Z
+Completed At: 2026-06-01T18:45:24Z
+File Path: `file:///c:/Users/Mehedi/Desktop/modevin-dashboard/src/Pages/Earning/Earning.jsx`
+Total Lines: 769
+Total Bytes: 31864
+Showing lines 1 to 769
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import React, { useState, useMemo } from "react";
+2: 
+3: // Rich, high-fidelity dataset matching the screenshot and adding dynamic pagination/filtering capabilities
+4: const mockTransactions = [
+5:   {
+6:     id: 1,
+7:     user: {
+8:       name: "Evelyn Thorne",
+9:       collectorId: "LA- 8892",
+10:       avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150&q=80",
+11:       email: "evelyn.thorne@example.com"
+12:     },
+13:     trxId: "#12345678",
+14:     subscription: "Legacy",
+15:     planName: "Monthly Subscription",
+16:     price: "$75",
+17:     date: "2 hours ago",
+18:     dateString: "02-24-2024",
+19:     acNumber: "**** **** **** *545",
+20:     type: "All Users"
+21:   },
+22:   {
+23:     id: 2,
+24:     user: {
+25:       name: "Evelyn Thorne",
+26:       collectorId: "LA- 8892",
+27:       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80",
+28:       email: "evelyn.thorne@example.com"
+29:     },
+30:     trxId: "#12345678",
+31:     subscription: "Pro",
+32:     planName: "Pro Subscription",
+33:     price: "$25",
+34:     date: "2 hours ago",
+35:     dateString: "02-24-2024",
+36:     acNumber: "**** **** **** *545",
+37:     type: "All Users"
+38:   },
+39:   {
+40:     id: 3,
+41:     user: {
+42:       name: "Evelyn Thorne",
+43:       collectorId: "LA- 8892",
+44:       avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&h=150&q=80",
+45:       email: "evelyn.thorne@example.com"
+46:     },
+47:     trxId: "#12345678",
+
+<truncated 32050 bytes>
+                <span className="text-xs font-extrabold text-[#002B49]/90 text-right break-all max-w-[180px]">
+725:                   {selectedTrx.user.email || `${selectedTrx.user.name.toLowerCase().replace(/\s/g, "")}@example.com`}
+726:                 </span>
+727:               </div>
+728: 
+729:               {/* Transaction Amount */}
+730:               <div className="flex justify-between items-center py-1">
+731:                 <span className="text-xs font-extrabold text-[#1C3D5A]/85 text-left">
+732:                   Transaction amount
+733:                 </span>
+734:                 <span className="text-xs font-black text-[#002B49] text-right">
+735:                   {selectedTrx.price}
+736:                 </span>
+737:               </div>
+738: 
+739:             </div>
+740: 
+741:             {/* Actions button row */}
+742:             <div className="flex gap-3">
+743:               <button
+744:                 type="button"
+745:                 onClick={() => setSelectedTrx(null)}
+746:                 className="flex-1 bg-white hover:bg-slate-50 border border-slate-200 text-[#002B49] text-xs font-black py-3 rounded-xl transition-all focus:outline-none flex items-center justify-center cursor-pointer"
+747:               >
+748:                 Cancel
+749:               </button>
+750:               <button
+751:                 type="button"
+752:                 onClick={() => {
+753:                   downloadInvoicePDF(selectedTrx);
+754:                   setSelectedTrx(null);
+755:                 }}
+756:                 className="flex-1 bg-[#002B49] hover:bg-[#002B49]/95 text-white text-xs font-black py-3 rounded-xl transition-all focus:outline-none flex items-center justify-center cursor-pointer shadow-xs"
+757:               >
+758:                 Download Invoice
+759:               </button>
+760:             </div>
+761: 
+762:           </div>
+763:         </div>
+764:       )}
+765: 
+766:     </div>
+767:   );
+768: }
+769: 
+The above content shows the entire, complete file contents of the requested file.
