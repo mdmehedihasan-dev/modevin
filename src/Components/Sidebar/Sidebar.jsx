@@ -43,7 +43,7 @@ const Sidebar = ({ closeDrawer }) => {
     {
       icon: <Store className="w-[18px] h-[18px]" />,
       label: "Marketplaces",
-      Link: "/payments",
+      Link: "/marketplace",
     },
     {
       icon: <Megaphone className="w-[18px] h-[18px]" />,
