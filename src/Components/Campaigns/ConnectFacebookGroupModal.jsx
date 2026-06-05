@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FiX, FiCheckCircle, FiShield, FiChevronDown, FiInfo, FiCopy } from 'react-icons/fi';
 import campainImg from '../../assets/image/campain.png';
 
-const ConnectFacebookGroupModal = ({ isOpen, onClose }) => {
+const ConnectFacebookGroupModal = ({ isOpen, onClose, onAuthorize }) => {
   const [frequency, setFrequency] = useState('Real-time');
   const [alertsEnabled, setAlertsEnabled] = useState(true);
 
@@ -151,7 +151,10 @@ const ConnectFacebookGroupModal = ({ isOpen, onClose }) => {
           >
             Cancel
           </button>
-          <button className="px-5 py-2.5 rounded-[10px] text-[14px] font-bold bg-[#0b3b7c] text-white hover:bg-[#0b3b7c]/90 transition-colors shadow-sm">
+          <button 
+            onClick={onAuthorize}
+            className="px-5 py-2.5 rounded-[10px] text-[14px] font-bold bg-[#0b3b7c] text-white hover:bg-[#0b3b7c]/90 transition-colors shadow-sm"
+          >
             Authorize & Connect Group
           </button>
         </div>

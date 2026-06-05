@@ -4,9 +4,11 @@ import { CampaignStats, CampaignPerformance } from '../../Components/Campaigns/C
 import { GroupAndLiveMonitoring, ActiveCampaigns } from '../../Components/Campaigns/CampaignMiddleSection';
 import { CampaignBottomSection } from '../../Components/Campaigns/CampaignBottomSection';
 import ConnectFacebookGroupModal from '../../Components/Campaigns/ConnectFacebookGroupModal';
+import CreateSocialMediaPostModal from '../../Components/Campaigns/CreateSocialMediaPostModal';
 
 const Campaigns = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
 
   return (
     <div className="p-8 bg-[#fdfdfd] min-h-screen font-sans mt-16">
@@ -38,6 +40,15 @@ const Campaigns = () => {
       <ConnectFacebookGroupModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
+        onAuthorize={() => {
+          setIsModalOpen(false);
+          setIsCreatePostModalOpen(true);
+        }}
+      />
+
+      <CreateSocialMediaPostModal 
+        isOpen={isCreatePostModalOpen}
+        onClose={() => setIsCreatePostModalOpen(false)}
       />
     </div>
   );
