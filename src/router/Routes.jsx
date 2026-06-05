@@ -28,6 +28,12 @@ import CreateAdmin from "../Pages/CreateAdmin/CreateAdmin";
 import Reports from "../Pages/Reports/Reports";
 import BulkEmail from "../Pages/BulkEmail/BulkEmail";
 
+import ChangePassword from "../Pages/Settings/ChangePassword";
+import ForgotPassword from "../Pages/Settings/ForgotPassword";
+import VerifyOtp from "../Pages/Settings/VerifyOtp";
+import PrivacyPolicy from "../Pages/Settings/PrivacyPolicy";
+import TermsConditions from "../Pages/Settings/TermsConditions";
+
 export const router = createBrowserRouter([
   {
     path: "/sign-in",
@@ -64,6 +70,11 @@ export const router = createBrowserRouter([
           {path: "/customer/:id" , element: <CustomerDetails/>},
           { path: "/support", element: <Support /> },
           { path: "/settings", element: <Settings/> },
+          { path: "/settings/change-password", element: <ChangePassword/> },
+          { path: "/settings/forgot-password", element: <ForgotPassword/> },
+          { path: "/settings/verify-otp", element: <VerifyOtp/> },
+          { path: "/settings/privacy-policy", element: <PrivacyPolicy/> },
+          { path: "/settings/terms-conditions", element: <TermsConditions/> },
           { path: "/notifications", element: <Notifications /> },
           { path: "/users", element: <Users /> },
           { path: "/earning", element: <Earning /> },
