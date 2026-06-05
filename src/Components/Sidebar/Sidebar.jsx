@@ -53,27 +53,27 @@ const Sidebar = ({ closeDrawer }) => {
     {
       icon: <LineChart className="w-[18px] h-[18px]" />,
       label: "Analytics",
-      Link: "/workers",
+      Link: "/analytics",
     },
     {
       icon: <Activity className="w-[18px] h-[18px]" />,
       label: "System Monitoring",
-      Link: "#",
+      Link: "/system-monitoring",
     },
     {
       icon: <UserPlus className="w-[18px] h-[18px]" />,
       label: "Create Admin",
-      Link: "#",
+      Link: "/create-admin",
     },
     {
       icon: <FileBarChart2 className="w-[18px] h-[18px]" />,
       label: "Report",
-      Link: "#",
+      Link: "/reports",
     },
     {
       icon: <Mail className="w-[18px] h-[18px]" />,
       label: "Bulk Email",
-      Link: "#",
+      Link: "/bulk-email",
     },
     {
       icon: <Sliders className="w-[18px] h-[18px]" />,
