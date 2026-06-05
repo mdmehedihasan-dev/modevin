@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import { CampaignStats, CampaignPerformance } from '../../Components/Campaigns/CampaignTopSection';
 import { GroupAndLiveMonitoring, ActiveCampaigns } from '../../Components/Campaigns/CampaignMiddleSection';
 import { CampaignBottomSection } from '../../Components/Campaigns/CampaignBottomSection';
+import ConnectFacebookGroupModal from '../../Components/Campaigns/ConnectFacebookGroupModal';
 
 const Campaigns = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="p-8 bg-[#fdfdfd] min-h-screen font-sans mt-16">
       {/* Page Header */}
@@ -17,7 +20,10 @@ const Campaigns = () => {
           <button className="border border-gray-200 text-gray-700 px-5 py-2.5 rounded-[10px] text-[13px] font-bold hover:bg-gray-50 transition-colors flex items-center gap-2 shadow-sm">
             View API Logs
           </button>
-          <button className="bg-[#0b3b7c] text-white px-5 py-2.5 rounded-[10px] flex items-center gap-2 hover:bg-[#0b3b7c]/90 text-[13px] font-bold transition-colors shadow-sm">
+          <button 
+            onClick={() => setIsModalOpen(true)}
+            className="bg-[#0b3b7c] text-white px-5 py-2.5 rounded-[10px] flex items-center gap-2 hover:bg-[#0b3b7c]/90 text-[13px] font-bold transition-colors shadow-sm"
+          >
             <FiPlus size={16} /> New Campaign
           </button>
         </div>
@@ -28,6 +34,11 @@ const Campaigns = () => {
       <GroupAndLiveMonitoring />
       <ActiveCampaigns />
       <CampaignBottomSection />
+
+      <ConnectFacebookGroupModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   );
 };
