@@ -75,11 +75,11 @@ const Sidebar = ({ closeDrawer }) => {
       label: "Bulk Email",
       Link: "/bulk-email",
     },
-    {
-      icon: <Sliders className="w-[18px] h-[18px]" />,
-      label: "Configure",
-      Link: "#",
-    },
+    // {
+    //   icon: <Sliders className="w-[18px] h-[18px]" />,
+    //   label: "Configure",
+    //   Link: "#",
+    // },
     {
       icon: <Settings className="w-[18px] h-[18px]" />,
       label: "Settings",
@@ -110,11 +110,10 @@ const Sidebar = ({ closeDrawer }) => {
                 <Link
                   to={item.Link}
                   onClick={closeDrawer}
-                  className={`flex items-center gap-3.5 px-4 py-2.5 rounded-lg text-xs font-bold tracking-wide transition-all ${
-                    isActive
+                  className={`flex items-center gap-3.5 px-4 py-2.5 rounded-lg text-xs font-bold tracking-wide transition-all ${isActive
                       ? "bg-[#002B49] text-white shadow-sm"
                       : "text-[#1C3D5A]/90 hover:bg-slate-50 hover:text-[#002B49]"
-                  }`}
+                    }`}
                 >
                   <span className={isActive ? "text-white" : "text-[#1C3D5A]/70"}>
                     {item.icon}
