@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import mainLogo from "../../assets/image/mainlogo.png";
 import {
   LayoutGrid,
   Users,
@@ -92,12 +93,7 @@ const Sidebar = ({ closeDrawer }) => {
       <div className="flex flex-col h-[calc(100vh-80px)]">
         {/* Top Header Logo space - Write bold logo */}
         <div className="px-6 py-8 flex flex-col items-center justify-center text-center select-none">
-          <span className="text-2xl font-black tracking-widest text-[#002B49] uppercase">
-            MODEVIN
-          </span>
-          <span className="text-[10px] text-gray-400 font-semibold tracking-wider mt-1.5 uppercase leading-none">
-            Preserving memories and people
-          </span>
+          <img src={mainLogo} alt="Modevin Logo" className="w-auto h-auto max-w-[150px] object-contain" />
         </div>
 
         {/* Navigation items list */}
