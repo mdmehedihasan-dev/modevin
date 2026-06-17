@@ -94,9 +94,20 @@ export default function Dashboard() {
             </button>
           ))}
           <div className="h-4 w-[1px] bg-gray-200 mx-1" />
-          <button className="p-1.5 text-gray-400 hover:text-[#002B49] hover:bg-slate-50 rounded-lg transition-colors flex items-center justify-center">
-            <Calendar className="w-4 h-4" />
-          </button>
+          <div className="relative">
+            <input 
+              type="date" 
+              className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10"
+              onChange={(e) => {
+                if(e.target.value) {
+                  setActiveFilter(`Date: ${e.target.value}`);
+                }
+              }}
+            />
+            <button className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${activeFilter.startsWith('Date:') ? 'bg-[#002B49] text-white shadow-sm' : 'text-gray-400 hover:text-[#002B49] hover:bg-slate-50'}`}>
+              <Calendar className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
 
