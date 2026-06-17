@@ -21,7 +21,6 @@ import Users from "../Pages/Users/Users";
 import Earning from "../Pages/Earning/Earning";
 import Subscription from "../Pages/Subscription/Subscription";
 import Marketplace from "../Pages/Marketplace/Marketplace";
-import Campaigns from "../Pages/Campaigns/Campaigns";
 import Analytics from "../Pages/Analytics/Analytics";
 import SystemMonitoring from "../Pages/SystemMonitoring/SystemMonitoring";
 import CreateAdmin from "../Pages/CreateAdmin/CreateAdmin";
@@ -80,7 +79,6 @@ export const router = createBrowserRouter([
           { path: "/earning", element: <Earning /> },
           { path: "/subscription", element: <Subscription /> },
           { path: "/marketplace", element: <Marketplace /> },
-          { path: "/campaigns", element: <Campaigns /> },
           { path: "/analytics", element: <Analytics /> },
           { path: "/system-monitoring", element: <SystemMonitoring /> },
           { path: "/create-admin", element: <CreateAdmin /> },

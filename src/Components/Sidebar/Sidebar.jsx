@@ -6,7 +6,6 @@ import {
   DollarSign,
   CreditCard,
   Store,
-  Megaphone,
   LineChart,
   Activity,
   UserPlus,
@@ -45,11 +44,6 @@ const Sidebar = ({ closeDrawer }) => {
       icon: <Store className="w-[18px] h-[18px]" />,
       label: "Marketplaces",
       Link: "/marketplace",
-    },
-    {
-      icon: <Megaphone className="w-[18px] h-[18px]" />,
-      label: "Campaigns",
-      Link: "/campaigns",
     },
     {
       icon: <LineChart className="w-[18px] h-[18px]" />,
