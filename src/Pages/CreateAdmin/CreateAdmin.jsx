@@ -28,7 +28,7 @@ const CreateAdmin = () => {
 
   return (
     <div className="p-8 bg-[#fdfdfd] min-h-screen font-sans mt-16 flex justify-center">
-      <div className="w-full max-w-3xl bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden h-fit">
+      <div className="w-full max-w-6xl bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden h-fit">
         {/* Header */}
         <div className="bg-[#002B49] px-6 py-4">
           <h2 className="text-white text-[20px] font-bold tracking-wide">Create Admin</h2>
@@ -37,12 +37,12 @@ const CreateAdmin = () => {
         {/* Form Content */}
         <div className="p-8">
           <form className="flex flex-col gap-6">
-            
+
             {/* Name */}
             <div>
               <label className="block text-[13px] text-gray-700 font-medium mb-2">Name</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="Jhon doe"
                 className="w-full border border-gray-300 rounded-md px-4 py-2.5 text-[14px] text-gray-800 outline-none focus:border-[#002B49] transition-colors"
               />
@@ -51,8 +51,8 @@ const CreateAdmin = () => {
             {/* Email */}
             <div>
               <label className="block text-[13px] text-gray-700 font-medium mb-2">Email</label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 placeholder="abc@gmail.com"
                 className="w-full border border-gray-300 rounded-md px-4 py-2.5 text-[14px] text-gray-800 outline-none focus:border-[#002B49] transition-colors"
               />
@@ -63,12 +63,12 @@ const CreateAdmin = () => {
               <div>
                 <label className="block text-[13px] text-gray-700 font-medium mb-2">New Password</label>
                 <div className="relative">
-                  <input 
-                    type={showPassword ? "text" : "password"} 
+                  <input
+                    type={showPassword ? "text" : "password"}
                     placeholder="********"
                     className="w-full border border-gray-300 rounded-md px-4 py-2.5 text-[14px] text-gray-800 outline-none focus:border-[#002B49] transition-colors pr-10"
                   />
-                  <button 
+                  <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
@@ -81,12 +81,12 @@ const CreateAdmin = () => {
               <div>
                 <label className="block text-[13px] text-gray-700 font-medium mb-2">Confirm New Password</label>
                 <div className="relative">
-                  <input 
-                    type={showConfirmPassword ? "text" : "password"} 
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
                     placeholder="********"
                     className="w-full border border-gray-300 rounded-md px-4 py-2.5 text-[14px] text-gray-800 outline-none focus:border-[#002B49] transition-colors pr-10"
                   />
-                  <button 
+                  <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
@@ -100,7 +100,7 @@ const CreateAdmin = () => {
             {/* Profile Image */}
             <div>
               <label className="block text-[13px] text-gray-700 font-medium mb-2">Profile Image</label>
-              <div 
+              <div
                 className="w-full h-32 bg-gray-50 border border-gray-200 rounded-md flex flex-col items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors relative overflow-hidden group"
                 onClick={() => fileInputRef.current?.click()}
               >
@@ -109,7 +109,7 @@ const CreateAdmin = () => {
                     <img src={imagePreview} alt="Profile Preview" className="w-full h-full object-contain" />
                     <div className="absolute inset-0 bg-black/40 hidden group-hover:flex items-center justify-center transition-all">
                       <span className="text-white text-[13px] font-medium mr-4">Change Image</span>
-                      <button 
+                      <button
                         type="button"
                         onClick={handleRemoveImage}
                         className="p-1.5 bg-rose-500 text-white rounded-md hover:bg-rose-600 transition-colors"
@@ -125,10 +125,10 @@ const CreateAdmin = () => {
                     <span className="text-[13px] text-gray-400 font-medium">Upload Image</span>
                   </>
                 )}
-                <input 
-                  type="file" 
-                  className="hidden" 
-                  accept="image/*" 
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="image/*"
                   onChange={handleImageChange}
                   ref={fileInputRef}
                 />
@@ -137,7 +137,7 @@ const CreateAdmin = () => {
 
             {/* Submit Button */}
             <div className="mt-4 flex justify-center">
-              <button 
+              <button
                 type="button"
                 className="bg-[#002B49] text-white font-bold text-[14px] px-12 py-3 rounded-md hover:bg-[#002B49]/90 transition-colors w-full max-w-sm shadow-sm"
               >
