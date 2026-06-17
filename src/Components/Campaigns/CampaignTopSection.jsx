@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   FiCalendar, FiBarChart2, FiTarget, 
   FiCloud, FiDatabase, FiCommand, FiAlertTriangle,
@@ -7,7 +7,7 @@ import {
 import { BsMegaphone } from 'react-icons/bs';
 import { ResponsiveContainer, AreaChart, Area, Line, XAxis, Tooltip, ComposedChart } from 'recharts';
 
-const chartData = [
+const chartData7Days = [
   { name: 'MON', reach: 200, engagement: 100 },
   { name: 'TUE', reach: 350, engagement: 180 },
   { name: 'WED', reach: 450, engagement: 200 },
@@ -15,6 +15,13 @@ const chartData = [
   { name: 'FRI', reach: 600, engagement: 350 },
   { name: 'SAT', reach: 850, engagement: 500 },
   { name: 'SUN', reach: 1000, engagement: 650 },
+];
+
+const chartData30Days = [
+  { name: 'Week 1', reach: 1500, engagement: 700 },
+  { name: 'Week 2', reach: 2800, engagement: 1200 },
+  { name: 'Week 3', reach: 3100, engagement: 1600 },
+  { name: 'Week 4', reach: 4500, engagement: 2500 },
 ];
 
 const statsData = [
@@ -112,6 +119,9 @@ export const CampaignStats = () => {
 };
 
 export const CampaignPerformance = () => {
+  const [timeRange, setTimeRange] = useState('7days');
+  const activeChartData = timeRange === '7days' ? chartData7Days : chartData30Days;
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 mb-6 items-start">
       {/* Chart Area */}
@@ -122,14 +132,24 @@ export const CampaignPerformance = () => {
             <p className="text-[12px] text-gray-500 mt-1">Real-time reach vs engagement across all luxury assets.</p>
           </div>
           <div className="flex bg-[#f4f7fb] p-1 rounded-full border border-gray-100">
-            <button className="px-4 py-1.5 text-[11px] font-bold bg-white shadow-sm rounded-full text-[#0b3b7c]">7 Days</button>
-            <button className="px-4 py-1.5 text-[11px] font-bold text-gray-500 rounded-full">30 Days</button>
+            <button 
+              onClick={() => setTimeRange('7days')}
+              className={`px-4 py-1.5 text-[11px] font-bold rounded-full transition-colors ${timeRange === '7days' ? 'bg-white shadow-sm text-[#0b3b7c]' : 'text-gray-500 hover:text-gray-700'}`}
+            >
+              7 Days
+            </button>
+            <button 
+              onClick={() => setTimeRange('30days')}
+              className={`px-4 py-1.5 text-[11px] font-bold rounded-full transition-colors ${timeRange === '30days' ? 'bg-white shadow-sm text-[#0b3b7c]' : 'text-gray-500 hover:text-gray-700'}`}
+            >
+              30 Days
+            </button>
           </div>
         </div>
         {/* Mock Chart */}
         <div className="flex-1 flex flex-col justify-end relative mt-8 pb-1">
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={chartData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+            <ComposedChart data={activeChartData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorReach" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#eff6ff" stopOpacity={1}/>
