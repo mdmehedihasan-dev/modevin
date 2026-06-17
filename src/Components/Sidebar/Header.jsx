@@ -19,13 +19,13 @@ const Header = ({ showDrawer }) => {
       {/* Floating White Rounded Card Container */}
       <div className="bg-white shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-gray-100/80 rounded-2xl w-full">
         <div className="flex items-center justify-between px-6 py-4">
-          
+
           {/* Left Section: Hamburger & Welcome Info */}
           <div className="flex items-center gap-4">
-            {/* Hamburger button always visible */}
-            <button 
-              onClick={showDrawer} 
-              className="text-[#002B49] hover:bg-slate-50 p-2 rounded-xl transition-colors flex items-center justify-center border border-transparent focus:outline-none"
+            {/* Hamburger button only visible on mobile/tablet */}
+            <button
+              onClick={showDrawer}
+              className="lg:hidden text-[#002B49] hover:bg-slate-50 p-2 rounded-xl transition-colors flex items-center justify-center border border-transparent focus:outline-none"
             >
               <svg className="w-5 h-5 text-[#002B49]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <line x1="3" y1="12" x2="21" y2="12" />
@@ -33,7 +33,7 @@ const Header = ({ showDrawer }) => {
                 <line x1="3" y1="18" x2="21" y2="18" />
               </svg>
             </button>
-            
+
             {/* Welcome Typography */}
             <div className="flex flex-col text-left">
               <h2 className="text-base md:text-lg font-bold text-[#002B49] tracking-tight leading-none">
