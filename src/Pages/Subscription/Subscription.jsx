@@ -20,7 +20,7 @@ const Subscription = () => {
           <h1 className="text-2xl font-semibold text-gray-800">Subscription Management</h1>
           <p className="text-gray-500 text-sm mt-1">Configure user tiers, pricing, and platform features.</p>
         </div>
-        <button 
+        <button
           onClick={() => setIsPlanModalOpen(true)}
           className="bg-[#0b3b7c] text-white px-4 py-2 rounded-md flex items-center gap-2 hover:bg-[#0b3b7c]/90 text-sm font-medium transition-colors shadow-sm"
         >
