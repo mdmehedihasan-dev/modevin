@@ -1,8 +1,54 @@
 import React, { useState } from 'react';
 import { FiImage, FiVideo, FiPaperclip, FiMoreVertical } from 'react-icons/fi';
 import { BsStars, BsMegaphone } from 'react-icons/bs';
+import { message } from 'antd';
 
 export const GroupAndLiveMonitoring = () => {
+  const [postContent, setPostContent] = useState('Exquisite craftsmanship meets modern utility. Discover the new Chrono GMT series...');
+  const [isPosting, setIsPosting] = useState(false);
+  const [attachments, setAttachments] = useState([]);
+  const fileInputRef = React.useRef(null);
+
+  const handleMagicCaption = () => {
+    message.success('AI magic caption generated!');
+    setPostContent('Elevate your style with our latest collection. 🌟 Perfect for any occasion, these pieces are designed to make you shine. #Luxury #Style #NewArrivals');
+  };
+
+  const handleAttachmentClick = (acceptType) => {
+    if (fileInputRef.current) {
+      fileInputRef.current.accept = acceptType;
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const newFiles = Array.from(e.target.files).map(f => f.name);
+      setAttachments([...attachments, ...newFiles]);
+      message.success(`${newFiles.length} file(s) attached.`);
+    }
+    e.target.value = null;
+  };
+
+  const removeAttachment = (index) => {
+    setAttachments(attachments.filter((_, i) => i !== index));
+  };
+
+  const handlePost = () => {
+    if (!postContent.trim() && attachments.length === 0) {
+      message.error('Please write something or attach a file before posting.');
+      return;
+    }
+    
+    setIsPosting(true);
+    setTimeout(() => {
+      message.success('Post successfully sent to all connected groups!');
+      setPostContent('');
+      setAttachments([]);
+      setIsPosting(false);
+    }, 800);
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 mb-6 items-start">
       {/* Facebook Group Automation */}
@@ -57,24 +103,51 @@ export const GroupAndLiveMonitoring = () => {
         <div className="bg-[#f4f7fb] rounded-xl border border-blue-50/50 p-4 mt-auto">
           <div className="flex justify-between items-center mb-3">
             <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">New Post Composer</h4>
-            <button className="text-[9px] font-bold text-indigo-600 flex items-center gap-1 bg-indigo-50 px-2 py-1 rounded">
+            <button 
+              onClick={handleMagicCaption}
+              className="text-[9px] font-bold text-indigo-600 flex items-center gap-1 bg-indigo-50 px-2 py-1 rounded hover:bg-indigo-100 transition-colors"
+            >
               <BsStars /> AI Magic Caption
             </button>
           </div>
           <textarea 
             className="w-full bg-white border border-gray-200 rounded-lg p-3 text-[12px] font-medium text-gray-600 resize-none outline-none focus:border-[#0b3b7c] transition-colors mb-3 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
             rows="3"
-            placeholder="Exquisite craftsmanship meets modern utility. Discover the new Chrono GMT series..."
-            defaultValue="Exquisite craftsmanship meets modern utility. Discover the new Chrono GMT series..."
+            placeholder="Write something to post..."
+            value={postContent}
+            onChange={(e) => setPostContent(e.target.value)}
           ></textarea>
+          
+          {attachments.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {attachments.map((file, idx) => (
+                <div key={idx} className="bg-white border border-gray-200 px-2 py-1 rounded flex items-center gap-1.5 text-[10px] font-medium text-gray-600 shadow-sm">
+                  <span className="truncate max-w-[120px]">{file}</span>
+                  <button onClick={() => removeAttachment(idx)} className="text-gray-400 hover:text-rose-500 ml-1">×</button>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="flex justify-between items-center">
             <div className="flex gap-2">
-              <button className="w-8 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-400 hover:text-[#0b3b7c] hover:border-[#0b3b7c] transition-colors"><FiImage size={13} /></button>
-              <button className="w-8 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-400 hover:text-[#0b3b7c] hover:border-[#0b3b7c] transition-colors"><FiVideo size={13} /></button>
-              <button className="w-8 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-400 hover:text-[#0b3b7c] hover:border-[#0b3b7c] transition-colors"><FiPaperclip size={13} /></button>
+              <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileChange} 
+                className="hidden" 
+                multiple 
+              />
+              <button onClick={() => handleAttachmentClick('image/*')} className="w-8 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-400 hover:text-[#0b3b7c] hover:border-[#0b3b7c] transition-colors"><FiImage size={13} /></button>
+              <button onClick={() => handleAttachmentClick('video/*')} className="w-8 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-400 hover:text-[#0b3b7c] hover:border-[#0b3b7c] transition-colors"><FiVideo size={13} /></button>
+              <button onClick={() => handleAttachmentClick('*/*')} className="w-8 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-400 hover:text-[#0b3b7c] hover:border-[#0b3b7c] transition-colors"><FiPaperclip size={13} /></button>
             </div>
-            <button className="bg-[#0b3b7c] text-white px-5 py-2 rounded-lg text-[12px] font-bold hover:bg-[#0b3b7c]/90 transition-colors shadow-sm">
-              Post to All
+            <button 
+              onClick={handlePost}
+              disabled={isPosting}
+              className="bg-[#0b3b7c] text-white px-5 py-2 rounded-lg text-[12px] font-bold hover:bg-[#0b3b7c]/90 transition-colors shadow-sm disabled:opacity-70"
+            >
+              {isPosting ? 'Posting...' : 'Post to All'}
             </button>
           </div>
         </div>
