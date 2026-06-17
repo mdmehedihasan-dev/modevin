@@ -1,7 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
+const eventsData = {
+  22: [
+    { time: '10:00', title: 'Weekly Strategy Sync', channel: 'Internal', highlight: false }
+  ],
+  23: [
+    { time: '11:15', title: 'Ad Copy Review', channel: 'Marketing Team', highlight: false },
+    { time: '15:00', title: 'Launch: Summer Diver', channel: 'Instagram/FB', highlight: true }
+  ],
+  24: [
+    { time: '09:00', title: 'Inventory Sync: Rolex Batch', channel: 'All Channels', highlight: false },
+    { time: '14:30', title: 'Member Spotlight Post', channel: 'FB Groups Only', highlight: true }
+  ],
+  25: [
+    { time: '08:30', title: 'Q3 Budget Approval', channel: 'Finance', highlight: false }
+  ],
+  26: [],
+  27: [
+    { time: '12:00', title: 'Weekend Flash Sale', channel: 'All Channels', highlight: true }
+  ],
+  28: []
+};
+
 export const CampaignBottomSection = () => {
+  const [weekOffset, setWeekOffset] = useState(0);
+  const [selectedDateIndex, setSelectedDateIndex] = useState(2); // Default to Wednesday
+  
+  const daysOfWeek = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  const baseDates = [22, 23, 24, 25, 26, 27, 28];
+  
+  // Calculate dates based on week offset
+  const currentDates = baseDates.map(date => {
+    let newDate = date + (weekOffset * 7);
+    if (newDate > 31) newDate = ((newDate - 1) % 31) + 1;
+    if (newDate <= 0) newDate = 31 + (newDate % 31);
+    return newDate;
+  });
+
+  const selectedDate = currentDates[selectedDateIndex];
+  const activeEvents = weekOffset === 0 ? (eventsData[selectedDate] || []) : [
+    { time: '09:00', title: 'Future Scheduled Event', channel: 'TBD', highlight: false }
+  ];
+
+  const handlePrevWeek = () => setWeekOffset(prev => prev - 1);
+  const handleNextWeek = () => setWeekOffset(prev => prev + 1);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Post Performance Tracking */}
@@ -73,21 +117,23 @@ export const CampaignBottomSection = () => {
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-[15px] font-bold text-gray-800">Upcoming Schedule</h3>
           <div className="flex gap-2">
-            <button className="text-gray-400 hover:text-gray-700 transition-colors"><FiChevronLeft size={16} /></button>
-            <button className="text-gray-400 hover:text-gray-700 transition-colors"><FiChevronRight size={16} /></button>
+            <button onClick={handlePrevWeek} className="text-gray-400 hover:text-gray-700 transition-colors"><FiChevronLeft size={16} /></button>
+            <button onClick={handleNextWeek} className="text-gray-400 hover:text-gray-700 transition-colors"><FiChevronRight size={16} /></button>
           </div>
         </div>
 
         {/* Calendar Strip */}
         <div className="flex justify-between mb-7 px-1">
-          {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, i) => {
-            const isToday = i === 2; // W/24th
-            const dates = [22, 23, 24, 25, 26, 27, 28];
+          {daysOfWeek.map((day, i) => {
+            const isSelected = i === selectedDateIndex;
             return (
               <div key={i} className="flex flex-col items-center">
                 <span className="text-[9px] font-bold text-gray-400 mb-2.5">{day}</span>
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-[12px] font-bold ${isToday ? 'bg-blue-50/50 text-[#0b3b7c] border border-blue-200' : 'text-gray-500 hover:bg-gray-50 cursor-pointer'}`}>
-                  {dates[i]}
+                <div 
+                  onClick={() => setSelectedDateIndex(i)}
+                  className={`w-8 h-8 rounded-lg flex items-center justify-center text-[12px] font-bold transition-colors ${isSelected ? 'bg-blue-50/50 text-[#0b3b7c] border border-blue-200' : 'text-gray-500 hover:bg-gray-50 cursor-pointer'}`}
+                >
+                  {currentDates[i]}
                 </div>
               </div>
             )
@@ -96,20 +142,19 @@ export const CampaignBottomSection = () => {
 
         {/* Events */}
         <div className="space-y-3">
-          <div className="flex gap-4 p-3.5 bg-[#f4f7fb] rounded-xl border border-blue-50/50">
-            <div className="text-[10px] font-bold text-gray-400 pt-0.5 w-10">09:00</div>
-            <div>
-              <h4 className="text-[12px] font-bold text-gray-800">Inventory Sync: Rolex Batch</h4>
-              <p className="text-[10px] text-gray-500 mt-0.5 font-medium">All Channels</p>
-            </div>
-          </div>
-          <div className="flex gap-4 p-3.5 bg-blue-50/50 rounded-xl border border-blue-100/50">
-            <div className="text-[10px] font-bold text-blue-400 pt-0.5 w-10">14:30</div>
-            <div>
-              <h4 className="text-[12px] font-bold text-[#0b3b7c]">Member Spotlight Post</h4>
-              <p className="text-[10px] text-blue-600/70 mt-0.5 font-medium">FB Groups Only</p>
-            </div>
-          </div>
+          {activeEvents.length > 0 ? (
+            activeEvents.map((event, idx) => (
+              <div key={idx} className={`flex gap-4 p-3.5 rounded-xl border transition-colors ${event.highlight ? 'bg-blue-50/50 border-blue-100/50' : 'bg-[#f4f7fb] border-blue-50/50'}`}>
+                <div className={`text-[10px] font-bold pt-0.5 w-10 ${event.highlight ? 'text-blue-400' : 'text-gray-400'}`}>{event.time}</div>
+                <div>
+                  <h4 className={`text-[12px] font-bold ${event.highlight ? 'text-[#0b3b7c]' : 'text-gray-800'}`}>{event.title}</h4>
+                  <p className={`text-[10px] mt-0.5 font-medium ${event.highlight ? 'text-blue-600/70' : 'text-gray-500'}`}>{event.channel}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="text-center py-6 text-sm text-gray-400 font-medium">No events scheduled for this date.</div>
+          )}
         </div>
       </div>
     </div>
