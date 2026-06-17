@@ -1,5 +1,15 @@
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+
+const data = [
+  { name: 'JAN', users: 10000 },
+  { name: 'FEB', users: 25000 },
+  { name: 'MAR', users: 45000 },
+  { name: 'APR', users: 70000 },
+  { name: 'MAY', users: 110000 },
+  { name: 'JUN', users: 140000 },
+];
 
 export default function UserGrowth() {
   return (
@@ -18,58 +28,47 @@ export default function UserGrowth() {
         </button>
       </div>
 
-      {/* SVG Line Chart Container */}
-      <div className="relative w-full h-64 flex items-end">
-        {/* Grid Lines */}
-        <div className="absolute inset-0 flex flex-col justify-between text-[10px] font-bold text-gray-300 pointer-events-none select-none pr-2">
-          <div className="w-full flex items-center justify-between border-b border-gray-50 pb-1.5">
-            <span>150k</span>
-          </div>
-          <div className="w-full flex items-center justify-between border-b border-gray-50 pb-1.5 mt-auto">
-            <span>100k</span>
-          </div>
-          <div className="w-full flex items-center justify-between border-b border-gray-50 pb-1.5 mt-auto">
-            <span>50k</span>
-          </div>
-          <div className="w-full flex items-center justify-between mt-auto">
-            <span>0</span>
-          </div>
-        </div>
-
-        {/* Inline SVG Chart Curve */}
-        <svg className="w-full h-[80%] z-10" viewBox="0 0 600 200" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="growthGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#002B49" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#002B49" stopOpacity="0.0" />
-            </linearGradient>
-          </defs>
-          {/* Grid area fill under the path */}
-          <path 
-            d="M 10 160 C 120 135, 230 115, 340 95 S 470 65, 590 55 L 590 200 L 10 200 Z" 
-            fill="url(#growthGradient)" 
-          />
-          {/* Curved indicator line */}
-          <path 
-            d="M 10 160 C 120 135, 230 115, 340 95 S 470 65, 590 55" 
-            fill="none" 
-            stroke="#002B49" 
-            strokeWidth="3.5" 
-            strokeLinecap="round"
-          />
-          {/* Tooltip dot on the curve peak */}
-          <circle cx="590" cy="55" r="4.5" fill="#002B49" stroke="white" strokeWidth="2" />
-        </svg>
-      </div>
-
-      {/* X Axis Labels */}
-      <div className="flex items-center justify-between text-[10px] font-bold text-gray-400 tracking-wider mt-4 px-1 select-none">
-        <span>JAN</span>
-        <span>FEB</span>
-        <span>MAR</span>
-        <span>APR</span>
-        <span>MAY</span>
-        <span>JUN</span>
+      <div className="relative w-full h-[280px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <defs>
+              <linearGradient id="growthGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#002B49" stopOpacity={0.2} />
+                <stop offset="100%" stopColor="#002B49" stopOpacity={0.0} />
+              </linearGradient>
+            </defs>
+            <XAxis 
+              dataKey="name" 
+              axisLine={false} 
+              tickLine={false} 
+              tick={{ fontSize: 10, fill: '#9ca3af', fontWeight: 'bold' }} 
+              dy={10} 
+            />
+            <YAxis 
+              axisLine={false} 
+              tickLine={false} 
+              tick={{ fontSize: 10, fill: '#d1d5db', fontWeight: 'bold' }} 
+              tickFormatter={(value) => value === 0 ? '0' : `${value / 1000}k`}
+              domain={[0, 150000]}
+              ticks={[0, 50000, 100000, 150000]}
+            />
+            <Tooltip 
+              contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}
+              itemStyle={{ color: '#002B49', fontWeight: 'bold' }}
+              labelStyle={{ color: '#6b7280', fontSize: '12px', fontWeight: '500', marginBottom: '4px' }}
+              formatter={(value) => [`${(value).toLocaleString()} Users`, 'Growth']}
+            />
+            <Area 
+              type="monotone" 
+              dataKey="users" 
+              stroke="#002B49" 
+              strokeWidth={3.5} 
+              fillOpacity={1} 
+              fill="url(#growthGradient)" 
+              activeDot={{ r: 5, fill: '#002B49', stroke: '#fff', strokeWidth: 2 }}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

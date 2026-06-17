@@ -1,6 +1,31 @@
 import React from 'react';
+import { BarChart, Bar, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+
+const data = [
+  { name: 'W1', revenue: 480 },
+  { name: 'W2', revenue: 750 },
+  { name: 'W3', revenue: 620 },
+  { name: 'W4', revenue: 950 },
+  { name: 'W5', revenue: 680 },
+  { name: 'W6', revenue: 800 },
+];
 
 export default function RevenueTrends() {
+  const maxRevenue = Math.max(...data.map(d => d.revenue));
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      const isPeak = payload[0].value === maxRevenue;
+      return (
+        <div className="bg-[#0D1B2A] text-white px-3 py-2 rounded-lg shadow-lg text-[12px] font-bold flex flex-col items-center gap-1">
+          {isPeak && <span className="text-[9px] text-gray-400 uppercase tracking-widest">Peak</span>}
+          <span>${payload[0].value}k</span>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="bg-white border border-gray-100/80 rounded-2xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-left flex flex-col justify-between">
       <div className="mb-6">
@@ -12,41 +37,24 @@ export default function RevenueTrends() {
         </p>
       </div>
 
-      {/* Bar Chart Visual container */}
-      <div className="relative w-full h-56 flex items-end justify-between px-2 gap-4 mt-6">
-        {/* Bar 1 */}
-        <div className="flex flex-col items-center flex-1 h-[48%] group cursor-pointer">
-          <div className="w-full bg-[#002B49]/10 hover:bg-[#002B49]/20 transition-all rounded-lg h-full" />
-        </div>
-
-        {/* Bar 2 */}
-        <div className="flex flex-col items-center flex-1 h-[75%] group cursor-pointer">
-          <div className="w-full bg-[#002B49]/10 hover:bg-[#002B49]/20 transition-all rounded-lg h-full" />
-        </div>
-
-        {/* Bar 3 */}
-        <div className="flex flex-col items-center flex-1 h-[62%] group cursor-pointer">
-          <div className="w-full bg-[#002B49]/10 hover:bg-[#002B49]/20 transition-all rounded-lg h-full" />
-        </div>
-
-        {/* Bar 4: Highlighted Peak Bar with tooltip */}
-        <div className="relative flex flex-col items-center flex-1 h-[95%] group cursor-pointer">
-          {/* Tooltip badge */}
-          <div className="absolute -top-7 bg-[#0D1B2A] text-white text-[8px] font-black tracking-widest px-2 py-0.5 rounded shadow-sm leading-none select-none uppercase z-20">
-            Peak
-          </div>
-          <div className="w-full bg-[#002B49] transition-all rounded-lg h-full shadow-[0_4px_12px_rgba(0,43,73,0.15)]" />
-        </div>
-
-        {/* Bar 5 */}
-        <div className="flex flex-col items-center flex-1 h-[68%] group cursor-pointer">
-          <div className="w-full bg-[#002B49]/10 hover:bg-[#002B49]/20 transition-all rounded-lg h-full" />
-        </div>
-
-        {/* Bar 6 */}
-        <div className="flex flex-col items-center flex-1 h-[80%] group cursor-pointer">
-          <div className="w-full bg-[#002B49]/10 hover:bg-[#002B49]/20 transition-all rounded-lg h-full" />
-        </div>
+      <div className="relative w-full h-[224px] mt-6">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data} margin={{ top: 20, right: 0, left: 0, bottom: 0 }} barCategoryGap={12}>
+            <Tooltip 
+              content={<CustomTooltip />} 
+              cursor={{ fill: 'transparent' }} 
+            />
+            <Bar dataKey="revenue" radius={[8, 8, 8, 8]}>
+              {data.map((entry, index) => (
+                <Cell 
+                  key={`cell-${index}`} 
+                  fill={entry.revenue === maxRevenue ? '#002B49' : '#002B491A'} 
+                  className="transition-all hover:opacity-80 cursor-pointer"
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
       </div>
 
       {/* Bar Chart Footer info */}
