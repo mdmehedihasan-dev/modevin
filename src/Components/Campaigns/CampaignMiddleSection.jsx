@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiImage, FiVideo, FiPaperclip, FiMoreVertical } from 'react-icons/fi';
 import { BsStars, BsMegaphone } from 'react-icons/bs';
 
@@ -123,7 +123,49 @@ export const GroupAndLiveMonitoring = () => {
   );
 };
 
+const initialCampaigns = [
+  {
+    id: '#CA-2024-001',
+    title: 'Summer Diver Collection',
+    details: '12 Ads • 3 Platforms',
+    progress: 70,
+    progressColor: 'bg-[#0b3b7c]',
+    budget: '$4,500.00',
+    status: 'Active',
+    statusClass: 'bg-emerald-100 text-emerald-600'
+  },
+  {
+    id: '#CA-2024-004',
+    title: 'Vintage Gold Heirlooms',
+    details: '5 Ads • FB/IG',
+    progress: 31,
+    progressColor: 'bg-indigo-300',
+    budget: '$2,200.00',
+    status: 'Scheduled',
+    statusClass: 'bg-blue-100 text-blue-600'
+  }
+];
+
 export const ActiveCampaigns = () => {
+  const [campaigns, setCampaigns] = useState(initialCampaigns);
+
+  const handleExport = () => {
+    const headers = ["Campaign ID", "Objective", "Details", "Progress", "Budget", "Status"];
+    const csvRows = campaigns.map(c => {
+      return `"${c.id}","${c.title}","${c.details}","${c.progress}%","${c.budget}","${c.status}"`;
+    });
+    const csvContent = [headers.join(","), ...csvRows].join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "active_campaigns_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="bg-white rounded-[20px] shadow-sm border border-gray-100 overflow-hidden mb-6">
       <div className="p-6 flex justify-between items-start mb-2">
@@ -131,7 +173,10 @@ export const ActiveCampaigns = () => {
           <h3 className="text-[15px] font-bold text-gray-800">Active Campaigns</h3>
           <p className="text-[11px] text-gray-500 mt-1">Global reach and automated triggers summary.</p>
         </div>
-        <button className="border border-gray-200 text-gray-700 px-4 py-2 rounded-lg text-[11px] font-bold hover:bg-gray-50 transition-colors shadow-sm">
+        <button 
+          onClick={handleExport}
+          className="border border-gray-200 text-gray-700 px-4 py-2 rounded-lg text-[11px] font-bold hover:bg-gray-50 transition-colors shadow-sm"
+        >
           Export Report
         </button>
       </div>
@@ -148,50 +193,30 @@ export const ActiveCampaigns = () => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-50 text-sm">
-          <tr className="hover:bg-gray-50/50 transition-colors">
-            <td className="px-6 py-5 font-mono text-[11px] text-gray-500 font-semibold tracking-wider">#CA-2024-001</td>
-            <td className="px-6 py-5">
-              <p className="font-bold text-[13px] text-[#0b3b7c]">Summer Diver Collection</p>
-              <p className="text-[10px] font-medium text-gray-400 mt-1">12 Ads • 3 Platforms</p>
-            </td>
-            <td className="px-6 py-5">
-              <div className="flex items-center gap-3">
-                <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-[#0b3b7c] h-full w-[70%] rounded-full"></div>
+          {campaigns.map((camp, idx) => (
+            <tr key={idx} className="hover:bg-gray-50/50 transition-colors">
+              <td className="px-6 py-5 font-mono text-[11px] text-gray-500 font-semibold tracking-wider">{camp.id}</td>
+              <td className="px-6 py-5">
+                <p className="font-bold text-[13px] text-[#0b3b7c]">{camp.title}</p>
+                <p className="text-[10px] font-medium text-gray-400 mt-1">{camp.details}</p>
+              </td>
+              <td className="px-6 py-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                    <div className={`${camp.progressColor} h-full rounded-full`} style={{ width: `${camp.progress}%` }}></div>
+                  </div>
+                  <span className="text-[10px] font-bold text-gray-500">{camp.progress}%</span>
                 </div>
-                <span className="text-[10px] font-bold text-gray-500">70%</span>
-              </div>
-            </td>
-            <td className="px-6 py-5 font-bold text-gray-700 text-[12px]">$4,500.00</td>
-            <td className="px-6 py-5">
-              <span className="bg-emerald-100 text-emerald-600 text-[8px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Active</span>
-            </td>
-            <td className="px-6 py-5 text-right">
-              <button className="text-gray-400 hover:text-gray-600"><FiMoreVertical /></button>
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-50/50 transition-colors">
-            <td className="px-6 py-5 font-mono text-[11px] text-gray-500 font-semibold tracking-wider">#CA-2024-004</td>
-            <td className="px-6 py-5">
-              <p className="font-bold text-[13px] text-[#0b3b7c]">Vintage Gold Heirlooms</p>
-              <p className="text-[10px] font-medium text-gray-400 mt-1">5 Ads • FB/IG</p>
-            </td>
-            <td className="px-6 py-5">
-              <div className="flex items-center gap-3">
-                <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-indigo-300 h-full w-[31%] rounded-full"></div>
-                </div>
-                <span className="text-[10px] font-bold text-gray-500">31%</span>
-              </div>
-            </td>
-            <td className="px-6 py-5 font-bold text-gray-700 text-[12px]">$2,200.00</td>
-            <td className="px-6 py-5">
-              <span className="bg-blue-100 text-blue-600 text-[8px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Scheduled</span>
-            </td>
-            <td className="px-6 py-5 text-right">
-              <button className="text-gray-400 hover:text-gray-600"><FiMoreVertical /></button>
-            </td>
-          </tr>
+              </td>
+              <td className="px-6 py-5 font-bold text-gray-700 text-[12px]">{camp.budget}</td>
+              <td className="px-6 py-5">
+                <span className={`${camp.statusClass} text-[8px] font-bold px-2 py-0.5 rounded uppercase tracking-wider`}>{camp.status}</span>
+              </td>
+              <td className="px-6 py-5 text-right">
+                <button className="text-gray-400 hover:text-gray-600"><FiMoreVertical /></button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
