@@ -7,13 +7,32 @@ export default function UserPagination({
   itemsPerPage, 
   onPageChange 
 }) {
+  const getVisiblePages = () => {
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, idx) => idx + 1);
+    }
+    
+    if (currentPage <= 3) {
+      return [1, 2, 3, '...', totalPages];
+    }
+    
+    if (currentPage >= totalPages - 2) {
+      return [1, '...', totalPages - 2, totalPages - 1, totalPages];
+    }
+    
+    return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
+  };
+
+  const startItem = totalCount > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0;
+  const endItem = Math.min(currentPage * itemsPerPage, totalCount);
+
   return (
     <div className="px-5 py-5 border-t border-gray-100 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 select-none">
       
       {/* Left Slice Range Label */}
       <div className="text-left">
         <span className="text-xs font-bold text-gray-400 font-semibold tracking-wide">
-          Showing {totalCount > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0} - {Math.min(currentPage * itemsPerPage, totalCount)} of {totalCount} users
+          Showing {startItem.toLocaleString()} - {endItem.toLocaleString()} of {totalCount.toLocaleString()} users
         </span>
       </div>
 
@@ -36,38 +55,25 @@ export default function UserPagination({
         </button>
 
         {/* Pagination Number List */}
-        {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pageNum) => (
-          <button
-            key={pageNum}
-            onClick={() => onPageChange(pageNum)}
-            className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tracking-wide transition-all focus:outline-none cursor-pointer ${
-              currentPage === pageNum
-                ? "bg-[#002B49] text-white shadow-sm"
-                : "text-[#1C3D5A] hover:bg-slate-50"
-            }`}
-          >
-            {pageNum}
-          </button>
-        ))}
-
-        {/* Ellipsis & Total pages if pages exceed limit */}
-        {totalPages > 5 && currentPage < totalPages - 2 && (
-          <>
-            <span className="text-xs font-extrabold text-gray-400 px-1 select-none">
+        {getVisiblePages().map((pageNum, idx) => (
+          pageNum === '...' ? (
+            <span key={`ellipsis-${idx}`} className="text-xs font-extrabold text-gray-400 px-1 select-none">
               ...
             </span>
+          ) : (
             <button
-              onClick={() => onPageChange(totalPages)}
+              key={pageNum}
+              onClick={() => onPageChange(pageNum)}
               className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold tracking-wide transition-all focus:outline-none cursor-pointer ${
-                currentPage === totalPages
+                currentPage === pageNum
                   ? "bg-[#002B49] text-white shadow-sm"
                   : "text-[#1C3D5A] hover:bg-slate-50"
               }`}
             >
-              {totalPages}
+              {pageNum}
             </button>
-          </>
-        )}
+          )
+        ))}
 
         {/* Right Chevron */}
         <button

@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function UserTable({ collectors, sortBy, onSort, onSelectUser }) {
-  
+
   const getPlanBadgeClass = (plan) => {
     switch (plan) {
       case "ELITE":
@@ -29,12 +29,12 @@ export default function UserTable({ collectors, sortBy, onSort, onSelectUser }) 
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse">
-        
+
         {/* Table Header Section */}
         <thead className="bg-[#EEF2F6]/60 select-none">
           <tr>
             {/* USER Header */}
-            <th 
+            <th
               onClick={() => onSort("name")}
               className="px-6 py-4 text-left text-[11px] font-bold text-[#1C3D5A]/70 uppercase tracking-widest cursor-pointer hover:text-[#002B49] transition-colors"
             >
@@ -45,9 +45,9 @@ export default function UserTable({ collectors, sortBy, onSort, onSelectUser }) 
                 </svg>
               </div>
             </th>
-            
+
             {/* EMAIL Header */}
-            <th 
+            <th
               onClick={() => onSort("email")}
               className="px-6 py-4 text-left text-[11px] font-bold text-[#1C3D5A]/70 uppercase tracking-widest cursor-pointer hover:text-[#002B49] transition-colors"
             >
@@ -58,22 +58,22 @@ export default function UserTable({ collectors, sortBy, onSort, onSelectUser }) 
                 </svg>
               </div>
             </th>
-            
+
             {/* PLAN Header */}
             <th className="px-6 py-4 text-left text-[11px] font-bold text-[#1C3D5A]/70 uppercase tracking-widest">
               Plan
             </th>
-            
+
             {/* STATUS Header */}
             <th className="px-6 py-4 text-left text-[11px] font-bold text-[#1C3D5A]/70 uppercase tracking-widest">
               Status
             </th>
-            
+
             {/* LAST ACTIVE Header */}
             <th className="px-6 py-4 text-left text-[11px] font-bold text-[#1C3D5A]/70 uppercase tracking-widest">
               Last Active
             </th>
-            
+
             {/* Actions placeholder header */}
             <th className="w-16 px-6 py-4"></th>
           </tr>
@@ -83,17 +83,17 @@ export default function UserTable({ collectors, sortBy, onSort, onSelectUser }) 
         <tbody className="divide-y divide-gray-100">
           {collectors.length > 0 ? (
             collectors.map((collector) => (
-              <tr 
+              <tr
                 key={collector.id}
                 className="hover:bg-slate-50/50 transition-colors group"
               >
-                
+
                 {/* User profile avatar & name */}
                 <td className="px-6 py-4.5 whitespace-nowrap">
                   <div className="flex items-center gap-3">
-                    <img 
-                      src={collector.avatar} 
-                      alt={collector.name} 
+                    <img
+                      src={collector.avatar}
+                      alt={collector.name}
                       className="w-10 h-10 rounded-full object-cover border border-gray-100 shadow-sm"
                       onError={(e) => {
                         e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(collector.name)}&background=002B49&color=fff`;
@@ -136,8 +136,8 @@ export default function UserTable({ collectors, sortBy, onSort, onSelectUser }) 
 
                 {/* Action buttons (three vertical dots menu) */}
                 <td className="px-6 py-4.5 whitespace-nowrap text-right select-none">
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={() => onSelectUser(collector)}
                     className="text-gray-400 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-100/80 transition-all focus:outline-none cursor-pointer"
                   >

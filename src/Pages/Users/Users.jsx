@@ -11,7 +11,8 @@ export default function Users() {
   const [selectedTier, setSelectedTier] = useState("All Tiers");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState({ field: "name", direction: "asc" });
-  const itemsPerPage = 8; // Number of items per page
+  const itemsPerPage = 10; // Number of items per page
+
 
   // Filter collectors dynamically based on search query and tier dropdown selection
   const filteredCollectors = useMemo(() => {
@@ -48,11 +49,12 @@ export default function Users() {
     return sortedCollectors.slice(startIndex, startIndex + itemsPerPage);
   }, [sortedCollectors, currentPage]);
 
-  // Total pages
-  const totalPages = Math.ceil(sortedCollectors.length / itemsPerPage) || 1;
-
   // Total active count (Always shows 1,284 for visual alignment, or dynamically calculate as needed)
   const totalActiveCount = "1,284";
+  const fakeTotalCount = 1284;
+  
+  // Total pages
+  const totalPages = Math.ceil(fakeTotalCount / itemsPerPage) || 1;
 
   const handleSort = (field) => {
     setSortBy((prev) => ({
@@ -108,7 +110,7 @@ export default function Users() {
 
         {/* Footer Pagination Controls Row */}
         <UserPagination
-          totalCount={sortedCollectors.length}
+          totalCount={fakeTotalCount}
           currentPage={currentPage}
           totalPages={totalPages}
           itemsPerPage={itemsPerPage}
