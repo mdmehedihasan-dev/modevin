@@ -1,10 +1,21 @@
 import React from 'react';
 import { 
   FiCalendar, FiBarChart2, FiTarget, 
-  FiCloud, FiBox, FiLink, FiAlertTriangle,
+  FiCloud, FiDatabase, FiCommand, FiAlertTriangle,
   FiTrendingUp, FiTrendingDown, FiClock
 } from 'react-icons/fi';
 import { BsMegaphone } from 'react-icons/bs';
+import { ResponsiveContainer, AreaChart, Area, Line, XAxis, Tooltip, ComposedChart } from 'recharts';
+
+const chartData = [
+  { name: 'MON', reach: 200, engagement: 100 },
+  { name: 'TUE', reach: 350, engagement: 180 },
+  { name: 'WED', reach: 450, engagement: 200 },
+  { name: 'THU', reach: 600, engagement: 350 },
+  { name: 'FRI', reach: 600, engagement: 350 },
+  { name: 'SAT', reach: 850, engagement: 500 },
+  { name: 'SUN', reach: 1000, engagement: 650 },
+];
 
 const statsData = [
   {
@@ -42,26 +53,26 @@ const statsData = [
 
 const systemData = [
   {
-    name: 'Facebook Graph API',
-    icon: <FiCloud className="text-emerald-500" />,
+    name: 'Facebook\nGraph API',
+    icon: <FiCloud className="text-emerald-500 text-lg" />,
     status: 'HEALTHY',
     statusColor: 'text-emerald-600 bg-emerald-100',
   },
   {
-    name: 'Asset Catalog Sync',
-    icon: <FiBox className="text-emerald-500" />,
+    name: 'Asset Catalog\nSync',
+    icon: <FiDatabase className="text-emerald-500 text-lg" />,
     status: '99.9%',
     statusColor: 'text-emerald-600 bg-emerald-100',
   },
   {
-    name: 'Campaign Webhooks',
-    icon: <FiLink className="text-blue-500" />,
+    name: 'Campaign\nWebhooks',
+    icon: <FiCommand className="text-blue-500 text-lg" />,
     status: 'ACTIVE',
     statusColor: 'text-blue-600 bg-blue-100',
   },
   {
-    name: 'Insta-Link Service',
-    icon: <FiAlertTriangle className="text-rose-500" />,
+    name: 'Insta-Link\nService',
+    icon: <FiAlertTriangle className="text-rose-500 text-lg" />,
     status: 'RETRYING',
     statusColor: 'text-rose-600 bg-rose-100',
     containerClass: 'bg-rose-50/50 border-rose-100/50',
@@ -107,44 +118,69 @@ export const CampaignPerformance = () => {
       <div className="bg-white p-6 rounded-[20px] shadow-sm border border-gray-100 h-full min-h-[300px] flex flex-col">
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h3 className="text-[15px] font-bold text-gray-800">Campaign Performance</h3>
+            <h3 className="text-lg font-bold text-[#0b3b7c]">Campaign Performance</h3>
             <p className="text-[12px] text-gray-500 mt-1">Real-time reach vs engagement across all luxury assets.</p>
           </div>
-          <div className="flex bg-gray-50 p-1 rounded-lg border border-gray-200">
-            <button className="px-3 py-1.5 text-[11px] font-bold bg-white shadow-sm rounded text-gray-800">7 Days</button>
-            <button className="px-3 py-1.5 text-[11px] font-bold text-gray-500">30 Days</button>
+          <div className="flex bg-[#f4f7fb] p-1 rounded-full border border-gray-100">
+            <button className="px-4 py-1.5 text-[11px] font-bold bg-white shadow-sm rounded-full text-[#0b3b7c]">7 Days</button>
+            <button className="px-4 py-1.5 text-[11px] font-bold text-gray-500 rounded-full">30 Days</button>
           </div>
         </div>
         {/* Mock Chart */}
-        <div className="flex-1 flex flex-col justify-end relative mt-8 pb-4">
-          <svg className="w-full h-full absolute inset-0 pt-4" preserveAspectRatio="none" viewBox="0 0 100 100">
-             <path d="M0,80 Q20,78 30,70 T50,55 T70,55 T90,30 T100,20" fill="none" stroke="#0b3b7c" strokeWidth="1.5" />
-             <path d="M0,90 Q20,88 30,85 T50,70 T70,70 T90,55 T100,45" fill="none" stroke="#60a5fa" strokeWidth="1.5" strokeDasharray="3 3" />
-          </svg>
-          <div className="flex justify-between text-[10px] font-bold text-gray-400 mt-auto border-t border-gray-100 pt-3 z-10">
-            <span>MON</span>
-            <span>TUE</span>
-            <span>WED</span>
-            <span>THU</span>
-            <span>FRI</span>
-            <span>SAT</span>
-            <span>SUN</span>
-          </div>
+        <div className="flex-1 flex flex-col justify-end relative mt-8 pb-1">
+          <ResponsiveContainer width="100%" height="100%">
+            <ComposedChart data={chartData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+              <defs>
+                <linearGradient id="colorReach" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#eff6ff" stopOpacity={1}/>
+                  <stop offset="95%" stopColor="#eff6ff" stopOpacity={0.1}/>
+                </linearGradient>
+              </defs>
+              <XAxis 
+                dataKey="name" 
+                axisLine={{ stroke: '#f3f4f6' }} 
+                tickLine={false} 
+                tick={{ fontSize: 10, fontWeight: 'bold', fill: '#9ca3af' }}
+                dy={10}
+              />
+              <Tooltip 
+                contentStyle={{ borderRadius: '8px', border: '1px solid #f0f0f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontSize: '12px' }}
+                labelStyle={{ fontWeight: 'bold', color: '#0b3b7c', marginBottom: '4px' }}
+              />
+              <Area 
+                type="monotone" 
+                dataKey="reach" 
+                stroke="#0b3b7c" 
+                strokeWidth={2}
+                fillOpacity={1} 
+                fill="url(#colorReach)" 
+              />
+              <Line 
+                type="monotone" 
+                dataKey="engagement" 
+                stroke="#60a5fa" 
+                strokeWidth={2}
+                strokeDasharray="4 4" 
+                dot={false}
+                activeDot={{ r: 4 }}
+              />
+            </ComposedChart>
+          </ResponsiveContainer>
         </div>
       </div>
 
       {/* System Monitoring */}
       <div className="bg-white p-6 rounded-[20px] shadow-sm border border-gray-100 h-full flex flex-col">
-        <h3 className="text-[15px] font-bold text-gray-800 mb-6">System Monitoring</h3>
+        <h3 className="text-lg font-bold text-[#0b3b7c] mb-6">System Monitoring</h3>
         
-        <div className="space-y-3.5 flex-1">
+        <div className="space-y-4 flex-1">
           {systemData.map((sys, idx) => (
-            <div key={idx} className={`flex items-center justify-between p-3.5 rounded-xl border ${sys.containerClass || 'bg-[#f4f7fb] border-blue-50/50'}`}>
-              <div className="flex items-center gap-3">
+            <div key={idx} className={`flex items-center justify-between p-4 rounded-xl border ${sys.containerClass || 'bg-[#f4f7fb] border-blue-50/50'}`}>
+              <div className="flex items-center gap-3.5">
                 {sys.icon}
-                <span className="text-[13px] font-semibold text-gray-700">{sys.name}</span>
+                <span className="text-[13px] font-semibold text-[#0b3b7c] whitespace-pre-line leading-tight">{sys.name}</span>
               </div>
-              <span className={`text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${sys.statusColor}`}>
+              <span className={`text-[9px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider ${sys.statusColor}`}>
                 {sys.status}
               </span>
             </div>
